@@ -1,0 +1,45 @@
+div{
+    overflow: auto;
+}
+.leftUp{
+    width: 49%;
+    height: 45vh;
+    /*background: red;*/
+}
+.up{
+    width: 2%;
+    height: 45vh;
+    background: dodgerblue;
+}
+.rightUp{
+    width: 49%;
+    height: 45vh;
+    /*background: yellow;*/
+}
+.left{
+    width: 100%;
+    height: 4vh;
+    background: dodgerblue;
+    overflow: hidden;
+}
+.leftDown{
+    width: 49%;
+    height: 45vh;
+    /*background: gray;*/
+}
+.rightDown{
+    /*float: right;*/
+    width: 49%;
+    height: 45vh;
+    /*background: green;*/
+}
+
+/*#tenLeft {*/
+/*    display: inline-block;*/
+/*    animation: scroll 10s linear infinite; !* 控制滚动速度和循环 *!*/
+/*}*/
+
+/*@keyframes scroll {*/
+/*    0% { transform: translateX(0); } !* 开始位置 *!*/
+/*    100% { transform: translateX(-100%); } !* 结束位置 *!*/
+/*}*/
