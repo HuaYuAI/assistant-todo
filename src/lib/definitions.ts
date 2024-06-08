@@ -44,7 +44,7 @@ export type  DataType ={
     expectedTimeRange?:(string|Dayjs|undefined)[];
     actualStartTime?:Date;
     actualEndTime?:Date;
-    actualTimeRange?:(string|Dayjs)[]
+    actualTimeRange?:(string|Dayjs|undefined)[]
     children: DataType[]|undefined;
 }
 export type DictType={
@@ -53,4 +53,9 @@ export type DictType={
     name:string;
     order:number;
     color:string;
+}
+export type SearchObject={
+    name: string,
+    value: any,
+    operateType:string,
 }

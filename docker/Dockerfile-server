@@ -2,7 +2,7 @@ FROM openjdk:8
 WORKDIR /app
 COPY task-manager-server.jar /app/task-manager-server.jar
 EXPOSE 8090
-CMD ["java", "-jar", "task-manager-server.jar"]
+CMD ["java", "-jar", "task-manager-server.jar","--spring.profiles.active=docker"]
 #                                     指定文件名            当前路径
 # docker build -t task-manager-server -f Dockerfile-server .
 # docker run -d -p 8090:8090 --restart unless-stopped -v ./hosts:/etc/hosts --name task-manager-server task-manager-server

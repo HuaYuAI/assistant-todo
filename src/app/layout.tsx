@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "@/ui/globals.css";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "任务管理",
@@ -17,7 +18,9 @@ export default function RootLayout({
 }>) {
   return (
       <html>
-        <body style={{margin: 0}}>{children}</body>
+      <Script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"/>
+      <Script src="https://cdn.jsdelivr.net/npm/dayjs@1/locale/zh-cn.js"/>
+      <body style={{margin: 0}}>{children}</body>
       </html>
-);
+  );
 }

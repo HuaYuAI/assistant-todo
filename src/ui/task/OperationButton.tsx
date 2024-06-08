@@ -4,6 +4,7 @@ import {DownOutlined, QuestionCircleOutlined} from "@ant-design/icons";
 import {DetailForm} from "@/ui/task/four/DetailForm";
 import {commonUpdate, deleteTask, OPERATION_BUTTON_TYPE} from "@/lib/task/project/data";
 import Link from "next/link";
+import {DetailModelForm} from "@/ui/task/project/DetailModelForm";
 
 export interface OperationButtonProps {
     itemId: number,
@@ -14,7 +15,7 @@ export interface OperationButtonProps {
 }
 
 interface OperationModelProps {
-    operationId: number | undefined,
+    operationId: number,
     pPid: number,
     pid: number,
     openModal: boolean
@@ -27,7 +28,7 @@ class OperationButton extends React.Component<OperationButtonProps, OperationMod
         this.state = {
             pid: props.pid,
             pPid: props.pPid,
-            operationId: undefined,
+            operationId: 0,
             openModal: false
         };
     }
@@ -89,12 +90,12 @@ class OperationButton extends React.Component<OperationButtonProps, OperationMod
                     cancelText="取消"
                     onConfirm={() => {
                         commonUpdate({
-                            updateColoumList:[{
+                            updateColumnList:[{
                                 name:'state',
                                 code:'state',
                                 value:'7'
                             }],
-                            conditionColoumList:[{
+                            conditionColumnList:[{
                                 name:'id',
                                 code:'id',
                                 operateType:'=',
@@ -113,6 +114,10 @@ class OperationButton extends React.Component<OperationButtonProps, OperationMod
             {
                 key: OPERATION_BUTTON_TYPE.SHOW_FOUR,
                 label: <Link href={"/task/four?pid=" + this.props.itemId}>四象限显示子任务</Link>,
+            },
+            {
+                key: OPERATION_BUTTON_TYPE.SHOW_CALENDAR,
+                label: <Link href={"/task/calendar?pid=" + this.props.itemId}>日历显示子任务</Link>,
             }
         ];
         return <Fragment>
@@ -125,42 +130,17 @@ class OperationButton extends React.Component<OperationButtonProps, OperationMod
                     </Space>
                 </a>
             </Dropdown>
-            <Modal
-                maskClosable={false}
-                destroyOnClose={true}
-                open={this.state.openModal}
-                title={this.state.operationId === OPERATION_BUTTON_TYPE.DETAIL ? '任务详情' :
+            {this.state.openModal&&<DetailModelForm
+                haveButton={false}
+                itemId={this.state.operationId === OPERATION_BUTTON_TYPE.UPDATE||this.state.operationId === OPERATION_BUTTON_TYPE.DETAIL?this.props.itemId:undefined}
+                pPid={this.props.pPid}
+                pid={this.state.operationId === OPERATION_BUTTON_TYPE.ADD_CHILD ?this.props.itemId:undefined}
+                operationId={this.state.operationId}
+                description={this.state.operationId === OPERATION_BUTTON_TYPE.DETAIL ? '任务详情' :
                     this.state.operationId === OPERATION_BUTTON_TYPE.ADD_CHILD ? '添加支线任务' :
                         this.state.operationId === OPERATION_BUTTON_TYPE.UPDATE ? '修改任务' : '未知操作'}
-                // open={open}
-                // onOk={handleOk}
-                onCancel={handleCancel}
-                footer={[]}
-                width={800}
-                // footer={[
-                //     <Button key="back" onClick={handleCancel}>
-                //         Return
-                //     </Button>,
-                //     <Button key="submit" type="primary" loading={loading} onClick={handleOk}>
-                //         Submit
-                //     </Button>,
-                //     <Button
-                //         key="link"
-                //         href="https://google.com"
-                //         type="primary"
-                //         loading={loading}
-                //         onClick={handleOk}
-                //     >
-                //         Search on Google
-                //     </Button>,
-                // ]}
-            >
-                <DetailForm itemId={this.props.itemId}
-                            operationId={this.state.operationId}
-                            handleCancel={handleCancel}
-                            pPid={this.props.pPid}
-                />
-            </Modal>
+                open={this.state.openModal}
+                reloadData={handleCancel}/>}
         </Fragment>
     }
 }

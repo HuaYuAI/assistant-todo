@@ -17,6 +17,7 @@ import {
 import {DetailModelForm} from "@/ui/task/project/DetailModelForm";
 import OperationButton from "@/ui/task/OperationButton";
 import dayjs from "dayjs";
+import '@/ui/task/project/TreeTablePro.modules.css'
 
 const TreeTablePro: React.FC = () => {
     const actionRef = useRef<ActionType>();
@@ -131,7 +132,7 @@ const TreeTablePro: React.FC = () => {
         }
     ];
     let toolBarRenderList = [
-        <DetailModelForm key={1} operationId={OPERATION_BUTTON_TYPE.ADD} description='添加主线任务' reloadData={()=>{
+        <DetailModelForm open={false} haveButton={true} key={1} operationId={OPERATION_BUTTON_TYPE.ADD} description='添加主线任务' reloadData={()=>{
             actionRef.current?.reload( false);
         }}/>,
         <Switch key={2} checkedChildren="树" unCheckedChildren="列表" checked={switchChecked}
@@ -207,6 +208,7 @@ const TreeTablePro: React.FC = () => {
                 // },
             }}
             rowKey="id"
+            rowClassName={(record, i) => (i % 2 === 1 ? "even" : "odd")}
             pagination={{
                 current: current,
                 pageSize: pageSize,
